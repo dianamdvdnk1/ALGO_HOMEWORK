@@ -1,22 +1,14 @@
-"""Сложность O(n) + O(n)"""
-#мы эт в классе решали, только первый уровень:)
-
-def f_rob(nums):
-    if len(nums) == 1:
-        return nums[0]
-    s = [0] * len(nums)
-    s[0] = nums[0]
-    s[1] = nums[1]
-    for i in range(2, len(nums)):
-        s[i] = nums [i] + max(s[:i-1])
-    return max(s[-1], s[-2])
+'''Сложность алгоритма O(n)'''
 
 
-
-def rob(nums):
-    if len(nums) == 1:
-        return nums[0] 
-    result1 = f_rob(nums[:len(nums) - 1]) #не учитываем первый элемент
-    result2 = f_rob(nums[1:])
-    return max(result1, result2) #вернуть максимум
-
+class Solution(object):
+    def hasCycle(self, head):
+        try: #избежание ошибки
+            slow = head #начальной точке равен слоу
+            fast = head.next #следующей точке
+            while slow is not fast: #пока слоу не в точке с фаст бежим по каждому элементу
+                slow = slow.next #переходим дальше на 1
+                fast = fast.next.next #переходим дальше на 2
+            return True
+        except:
+            return False

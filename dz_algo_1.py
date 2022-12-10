@@ -1,14 +1,11 @@
-class Solution:
-    def countSquares(self, matrix):
-        count=matrix.count(1)
-        count=0
-        for r in range(len(matrix)):
-            for c in range(len(matrix[0])):
-                if matrix[r][c]==1:
-                    count+=1
-                if r==0 or c==0: continue
-                
-                old_val=matrix[r][c]
-                matrix[r][c]=min(matrix[r-1][c-1], matrix[r][c-1],matrix[r-1][c]) + 1 if matrix[r][c]==1 else 0
-                count= count+ matrix[r][c]- old_val  
-        return count
+"""Сложность алгоритма O(n) """
+
+def isPalindrome(head) :
+
+    pali = '' # создаём строку для добавления всех елементов
+
+    while head != None: # по не пустому циклу проходим по каждому элементу и добавляем в него значения.
+        pali += str(head.val)
+        head = head.next
+    return pali == pali[::-1] #смотрим на #reverse версию строки, и если обычны список == перевернутой, то все ок
+

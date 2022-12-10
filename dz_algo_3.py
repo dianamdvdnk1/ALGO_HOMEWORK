@@ -1,12 +1,38 @@
-"""Сложность алгоритма == O(n)^2"""
+"""Сложность O(n*м)"""
 
-def uniquePathsWithObstacles(obstacleGrid):
-    dp = [[0] * len(obstacleGrid[0]) for _ in range(len(obstacleGrid))]# Создаем матрицу по размеру входных данных
-    dp[0][0] = 1# Первый элемент = 1
-    for i in range(len(obstacleGrid)): # Проход по списку
-        for j in range(len(obstacleGrid[0])):
-            if obstacleGrid[i][j] == 1: # Если найден камень
-                dp[i][j] = 0 # Отмечаем камень
-            elif i > 0 or j > 0: # Если индекс больше 0
-                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1]# То прибавляем кол-во путей в матрицу
-    return dp[-1][-1] # Выводим последний элемент матрицы
+
+class Solution:
+    def averageOfLevels(self, root):
+        
+        if root == None:
+            return []
+        
+        result = []
+        
+        #сохранение корневого узла на текущем уровне. (случается только один раз)
+        curr_level = [root]
+        
+        
+        while curr_level:
+            node_val =  [] #значения узлов на текущем уровне
+            next_level = [] #левый и правый узлы каждого узла текущего уровня (если есть)
+            
+            #обход каждого узла, присутствующего на текущем уровне
+            for node in curr_level:
+                node_val.append(node.val) 
+                
+                #добавление левого и правого узлов к next_level, чтобы перемещаться по горизонтали
+                if node.left:
+                    next_level.append(node.left)
+                    
+                if node.right:
+                    next_level.append(node.right)
+                    
+            
+            #cчитаем среднее значение
+            result.append(sum(node_val)/len(node_val))
+            
+            #изменение уровня на следующий уровень узлов
+            curr_level = next_level
+        
+        return result
